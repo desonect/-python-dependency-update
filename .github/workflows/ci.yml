@@ -35,7 +35,8 @@ jobs:
           git config --local user.email "seu-email@exemplo.com"
           git config --local user.name "seu-nome"
           git add requirements.txt
-          git commit -m "Atualizar dependências automaticamente"
-          git push
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/desonect/-python-dependency-update.git HEAD:main
-        if: success()
+          if git commit -m "Atualizar dependências automaticamente"; then
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/desonect/-python-dependency-update.git HEAD:main
+          else
+            echo "Nenhuma alteração para commit."
+          fi
